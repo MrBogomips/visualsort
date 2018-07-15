@@ -48,6 +48,7 @@ func (histo *bar) draw(target pixel.Target, pos int) {
 var histogram []bar
 var statsText *text.Text
 var debugText *text.Text
+var face *basicfont.Face
 
 func initHisto() {
 	histogram = make([]bar, size)
@@ -55,11 +56,11 @@ func initHisto() {
 		histogram[i] = bar{Value: i, imd: imdraw.New(nil)}
 	}
 
-	face := basicfont.Face7x13
+	face = basicfont.Face7x13
 	atlas := text.NewAtlas(face, text.ASCII)
-	statsText = text.New(pixel.V(10, 600), atlas)
+	statsText = text.New(pixel.V(10, windowHeight-1.5*float64(face.Height)), atlas)
 	statsText.Color = colornames.Aqua
-	debugText = text.New(pixel.V(200, 600), atlas)
+	debugText = text.New(pixel.V(200, windowHeight-1.5*float64(face.Height)), atlas)
 	debugText.Color = colornames.Aqua
 }
 
@@ -76,5 +77,5 @@ func drawStats(target pixel.Target) {
 	if dataProcessed {
 		statsText.WriteString(fmt.Sprintf("\n time: %v\n\n(press ESC to quit)", elapsedTime))
 	}
-	statsText.Draw(target, pixel.IM.Moved(pixel.V(0, -20)))
+	statsText.Draw(target, pixel.IM)
 }
