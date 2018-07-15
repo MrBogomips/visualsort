@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"log"
 
 	"golang.org/x/image/colornames"
 
@@ -53,7 +52,6 @@ var debugText *text.Text
 func initHisto() {
 	histogram = make([]bar, size)
 	for i := 0; i < size; i++ {
-		log.Printf("Initializing Histogram [%v]", i)
 		histogram[i] = bar{Value: i, imd: imdraw.New(nil)}
 	}
 
@@ -66,7 +64,7 @@ func initHisto() {
 }
 
 func drawHisto(target pixel.Target) {
-	for i, j := range data.array {
+	for i, j := range globalData.array {
 		histogram[j].draw(target, i)
 	}
 	drawStats(target)
@@ -74,8 +72,8 @@ func drawHisto(target pixel.Target) {
 
 func drawStats(target pixel.Target) {
 	statsText.Clear()
-	statsText.WriteString(fmt.Sprintf("%v\n array size: %v\n tests: %v\n swaps: %v", algorithm, size, data.numOfComparison, data.numOfSwaps))
-	if data.dataProcessed {
+	statsText.WriteString(fmt.Sprintf("%v\n array size: %v\n tests: %v\n swaps: %v", algorithm, size, numOfComparison, numOfSwaps))
+	if dataProcessed {
 		statsText.WriteString(fmt.Sprintf("\n time: %v\n\n(press ESC to quit)", elapsedTime))
 	}
 	statsText.Draw(target, pixel.IM.Moved(pixel.V(0, -20)))

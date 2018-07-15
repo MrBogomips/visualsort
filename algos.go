@@ -80,7 +80,15 @@ func (algo quickSortAlgo) sort(d *Data) {
 }
 
 func (algo mergeSortAlgo) sort(d *Data) {
+	if d.Len() <= 1 {
+		return
+	}
 
+	left, right := d.Split(d.Len() / 2)
+
+	algo.sort(left)
+	algo.sort(right)
+	d.Merge(left, right)
 }
 
 func (algo cocktailSortAlgo) sort(d *Data) {

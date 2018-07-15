@@ -33,7 +33,7 @@ const (
 	selectionSort algo = "selection_sort"
 	shellSort     algo = "shell_sort"
 	cocktailSort  algo = "cocktail_sort"
-	mergeSort     algo = "merge_sort"
+	mergeSort     algo = "merge_sort" //TODO
 )
 
 var algos map[algo]sorter
@@ -47,7 +47,7 @@ func init() {
 	algos[selectionSort] = selectionSortAlgo{}
 	algos[shellSort] = shellSortAlgo{}
 	algos[cocktailSort] = cocktailSortAlgo{}
-	algos[mergeSort] = mergeSortAlgo{}
+	//algos[mergeSort] = mergeSortAlgo{}  // TODO
 
 	koColor = pixel.RGB(1, 0, 0)
 	bgColor = pixel.RGB(0, 0, 0)
@@ -85,16 +85,16 @@ func run() {
 		panic("Algorithm not found")
 	}
 
-	go func() {
-		runningTime = time.Now()
-		algo.sort(&data)
-		data.endOfWork()
-	}()
-
 	time.Sleep(time.Duration(startDelay) * time.Second)
 
+	go func() {
+		runningTime = time.Now()
+		algo.sort(&globalData)
+		globalData.endOfWork()
+	}()
+
 	for !win.Closed() {
-		if data.dataProcessed {
+		if dataProcessed {
 			time.Sleep(50 * time.Millisecond)
 			if win.Pressed(pixelgl.KeyEscape) {
 				break
