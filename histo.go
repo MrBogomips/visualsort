@@ -60,6 +60,7 @@ func initHisto() {
 	atlas := text.NewAtlas(face, text.ASCII)
 	statsText = text.New(pixel.V(10, windowHeight-1.5*float64(face.Height)), atlas)
 	statsText.Color = colornames.Aqua
+	statsText.LineHeight = float64(face.Height) * 1.1
 	debugText = text.New(pixel.V(200, windowHeight-1.5*float64(face.Height)), atlas)
 	debugText.Color = colornames.Aqua
 }
