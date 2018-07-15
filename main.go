@@ -20,25 +20,34 @@ var (
 	runningTime                        time.Time
 	elapsedTime                        time.Duration
 	debug                              bool
+	startDelay                         int
+	dataAsc, dataDesc                  bool
+	dataRndSeed                        int64
 )
 
 const (
-	quickSort    algo = "quick_sort"
-	bubbleSort   algo = "bubble_sort"
-	shellSort    algo = "shell_sort"
-	cocktailSort algo = "cocktail_sort"
-	mergeSort    algo = "merge_sort"
+	quickSort     algo = "quick_sort"
+	bubbleSort    algo = "bubble_sort"
+	bubbleSort2   algo = "bubble_sort2"
+	insertionSort algo = "insertion_sort"
+	selectionSort algo = "selection_sort"
+	shellSort     algo = "shell_sort"
+	cocktailSort  algo = "cocktail_sort"
+	mergeSort     algo = "merge_sort"
 )
 
-var algos map[algo]Sorter
+var algos map[algo]sorter
 
 func init() {
-	algos = make(map[algo]Sorter)
-	algos[quickSort] = QuickSort{}
-	algos[bubbleSort] = BubbleSort{}
-	algos[shellSort] = ShellSort{}
-	algos[cocktailSort] = CocktailSort{}
-	algos[mergeSort] = MergeSort{}
+	algos = make(map[algo]sorter)
+	algos[quickSort] = quickSortAlgo{}
+	algos[bubbleSort] = bubbleSortAlgo{}
+	algos[bubbleSort2] = bubbleSort2Algo{}
+	algos[insertionSort] = insertionSortAlgo{}
+	algos[selectionSort] = selectionSortAlgo{}
+	algos[shellSort] = shellSortAlgo{}
+	algos[cocktailSort] = cocktailSortAlgo{}
+	algos[mergeSort] = mergeSortAlgo{}
 
 	koColor = pixel.RGB(1, 0, 0)
 	bgColor = pixel.RGB(0, 0, 0)
@@ -69,7 +78,7 @@ func run() {
 	event := time.Tick(time.Duration(speed) * time.Millisecond)
 	newData(event)
 
-	var algo Sorter
+	var algo sorter
 	var found bool
 
 	if algo, found = algos[algorithm]; !found {
@@ -78,17 +87,21 @@ func run() {
 
 	go func() {
 		runningTime = time.Now()
-		algo.Sort(&data)
+		algo.sort(&data)
 		data.endOfWork()
 	}()
 
-	win.SetSmooth(true)
+	time.Sleep(time.Duration(startDelay) * time.Second)
+
 	for !win.Closed() {
+		if data.dataProcessed {
+			time.Sleep(50 * time.Millisecond)
+			if win.Pressed(pixelgl.KeyEscape) {
+				break
+			}
+		}
 		win.Clear(bgColor)
 		drawHisto(win)
 		win.Update()
-		if data.dataProcessed && win.Pressed(pixelgl.KeyEscape) {
-			break
-		}
 	}
 }

@@ -6,6 +6,7 @@ import (
 	"time"
 )
 
+// Data is the interface to the sorting algorithms
 type Data struct {
 	array           []int
 	sync            <-chan time.Time
@@ -35,7 +36,6 @@ func (data *Data) Less(i, j int) bool {
 	return data.array[i] < data.array[j]
 }
 
-// Length returns the length of the underlying data
 func (data *Data) Len() int {
 	return len(data.array)
 }
@@ -48,7 +48,6 @@ func setTestedElements(i, j int) {
 		firstComparison = false
 		prevI, prevJ = i, j
 	}
-	// reset status of previus compared elements
 	histogram[data.array[prevI]].isComparing = false
 	histogram[data.array[prevJ]].isComparing = false
 	histogram[data.array[i]].isComparing = true
@@ -64,7 +63,23 @@ func (data *Data) endOfWork() {
 }
 
 func newData(sync <-chan time.Time) {
-	rand.Seed(time.Now().UnixNano())
-	data.array = rand.Perm(size)
+	if dataAsc {
+		data.array = make([]int, size)
+		for i := 0; i < size; i++ {
+			data.array[i] = i
+		}
+	} else if dataDesc {
+		data.array = make([]int, size)
+		for i := 0; i < size; i++ {
+			data.array[i] = size - i - 1
+		}
+	} else {
+		if dataRndSeed > 0 {
+			rand.Seed(dataRndSeed)
+		} else {
+			rand.Seed(time.Now().UnixNano())
+		}
+		data.array = rand.Perm(size)
+	}
 	data.sync = sync
 }

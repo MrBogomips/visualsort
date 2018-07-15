@@ -12,13 +12,13 @@ import (
 	"golang.org/x/image/font/basicfont"
 )
 
-type Histo struct {
+type bar struct {
 	Value       int
 	isComparing bool
 	imd         *imdraw.IMDraw
 }
 
-func (histo *Histo) draw(target pixel.Target, pos int) {
+func (histo *bar) draw(target pixel.Target, pos int) {
 	w := float64(windowWidth) / float64(size)
 	h1 := float64(windowHeight) / (float64(size) + 1) * float64(histo.Value+1)
 	x0 := w * float64(pos)
@@ -46,15 +46,15 @@ func (histo *Histo) draw(target pixel.Target, pos int) {
 
 }
 
-var histogram []Histo
+var histogram []bar
 var statsText *text.Text
 var debugText *text.Text
 
 func initHisto() {
-	histogram = make([]Histo, size)
+	histogram = make([]bar, size)
 	for i := 0; i < size; i++ {
 		log.Printf("Initializing Histogram [%v]", i)
-		histogram[i] = Histo{Value: i, imd: imdraw.New(nil)}
+		histogram[i] = bar{Value: i, imd: imdraw.New(nil)}
 	}
 
 	face := basicfont.Face7x13
