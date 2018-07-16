@@ -31,7 +31,7 @@ func (algo bubbleSort2Algo) sort(d *Data) {
 	swapped := true
 	for swapped {
 		swapped = false
-		for i := 0; i < d.Len()-1; i++ {
+		for i := 0; i < d.Len()-1-i; i++ {
 			if d.Less(i+1, i) {
 				d.Swap(i, i+1)
 				swapped = true
