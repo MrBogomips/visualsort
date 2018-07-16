@@ -46,7 +46,7 @@ Some of them are treated here:
 It would suffice
 
 ```
-TODO
+ go get github.com/MrBogomips/visualsort
 ```
 
 ## Contribution
