@@ -1,6 +1,6 @@
 # Visualsort
 
-Visualsort is a go programming to exploit the capabilities of pixel gaming library.
+Visualsort borns as a program to exploit the capabilities of pixel gaming library (and having fun with Go).
 
 It's aim is to provide a visual representation of the most popular in-memory sorting algorithms.
 
