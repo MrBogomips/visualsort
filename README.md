@@ -1,6 +1,6 @@
 # Visualsort
 
-Visualsort borns as a program to exploit the capabilities of pixel gaming library (and having fun with Go).
+Visualsort borns as a program to exploit the capabilities of [Pixel](https://github.com/faiface/pixel) gaming library (and having fun with Go).
 
 It's aim is to provide a visual representation of the most popular in-memory sorting algorithms.
 
