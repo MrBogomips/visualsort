@@ -26,14 +26,13 @@ var (
 )
 
 const (
-	quickSort     algo = "quick_sort"
-	bubbleSort    algo = "bubble_sort"
-	bubbleSort2   algo = "bubble_sort2"
-	insertionSort algo = "insertion_sort"
-	selectionSort algo = "selection_sort"
-	shellSort     algo = "shell_sort"
-	cocktailSort  algo = "cocktail_sort"
-	mergeSort     algo = "merge_sort" //TODO
+	quickSort     algo = "quicksort"
+	bubbleSort    algo = "bubblesort"
+	insertionSort algo = "insertionsort"
+	selectionSort algo = "selectionsort"
+	shellSort     algo = "shellsort"
+	cocktailSort  algo = "cocktailsort"
+	mergeSort     algo = "mergesort" //TODO
 )
 
 var algos map[algo]sorter
@@ -42,11 +41,10 @@ func init() {
 	algos = make(map[algo]sorter)
 	algos[quickSort] = quickSortAlgo{}
 	algos[bubbleSort] = bubbleSortAlgo{}
-	algos[bubbleSort2] = bubbleSort2Algo{}
 	algos[insertionSort] = insertionSortAlgo{}
 	algos[selectionSort] = selectionSortAlgo{}
 	algos[shellSort] = shellSortAlgo{}
-	algos[cocktailSort] = cocktailSortAlgo{}
+	//algos[cocktailSort] = cocktailSortAlgo{}
 	//algos[mergeSort] = mergeSortAlgo{}  // TODO
 
 	koColor = pixel.RGB(1, 0, 0)

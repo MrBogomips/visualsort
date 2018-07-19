@@ -9,7 +9,6 @@ type sorter interface {
 
 // BubbleSort algorithm
 type bubbleSortAlgo struct{}
-type bubbleSort2Algo struct{}
 type insertionSortAlgo struct{}
 type shellSortAlgo struct{}
 type quickSortAlgo struct{}
@@ -18,16 +17,6 @@ type mergeSortAlgo struct{}
 type selectionSortAlgo struct{}
 
 func (algo bubbleSortAlgo) sort(d *Data) {
-	for n := d.Len() - 1; n > 0; n-- {
-		for j := 0; j < n; j++ {
-			if !d.Less(j, n) {
-				d.Swap(j, n)
-			}
-		}
-	}
-}
-
-func (algo bubbleSort2Algo) sort(d *Data) {
 	swapped := true
 	for swapped {
 		swapped = false
