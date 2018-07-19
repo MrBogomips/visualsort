@@ -18,14 +18,16 @@ type selectionSortAlgo struct{}
 
 func (algo bubbleSortAlgo) sort(d *Data) {
 	swapped := true
+	end := 0
 	for swapped {
 		swapped = false
-		for i := 0; i < d.Len()-1; i++ {
+		for i := 0; i < d.Len()-1-end; i++ {
 			if d.Less(i+1, i) {
 				d.Swap(i, i+1)
 				swapped = true
 			}
 		}
+		end++
 	}
 }
 
