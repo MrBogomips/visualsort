@@ -26,6 +26,7 @@ var (
 )
 
 const (
+	golibSort     algo = "golibsort"
 	quickSort     algo = "quicksort"
 	bubbleSort    algo = "bubblesort"
 	insertionSort algo = "insertionsort"
@@ -39,6 +40,7 @@ var algos map[algo]sorter
 
 func init() {
 	algos = make(map[algo]sorter)
+	algos[golibSort] = golibSortAlgo{}
 	algos[quickSort] = quickSortAlgo{}
 	algos[bubbleSort] = bubbleSortAlgo{}
 	algos[insertionSort] = insertionSortAlgo{}

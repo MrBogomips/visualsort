@@ -11,7 +11,8 @@ type sorter interface {
 type bubbleSortAlgo struct{}
 type insertionSortAlgo struct{}
 type shellSortAlgo struct{}
-type quickSortAlgo struct{}
+type golibSortAlgo struct{}
+type quickSortAlgo struct{} //Hoare Quicksort
 type cocktailSortAlgo struct{}
 type mergeSortAlgo struct{}
 type selectionSortAlgo struct{}
@@ -66,8 +67,36 @@ func (algo shellSortAlgo) sort(d *Data) {
 	}
 }
 
-func (algo quickSortAlgo) sort(d *Data) {
+func (algo golibSortAlgo) sort(d *Data) {
 	sort.Sort(d)
+}
+
+func (algo quickSortAlgo) sort(d *Data) {
+
+	algo.quicksort(d, 0, d.Len()-1)
+}
+
+func (algo quickSortAlgo) quicksort(d *Data, from, to int) {
+	if from < to {
+		mid := algo.partition(d, from, to)
+		algo.quicksort(d, from, mid)
+		algo.quicksort(d, mid+1, to)
+	}
+}
+
+func (algo quickSortAlgo) partition(d *Data, from, to int) int {
+	i := from - 1
+	j := to + 1
+	for {
+		for i++; d.Less(i, from); i++ {
+		}
+		for j--; d.Less(from, j); j-- {
+		}
+		if i >= j {
+			return j
+		}
+		d.Swap(i, j)
+	}
 }
 
 func (algo mergeSortAlgo) sort(d *Data) {
